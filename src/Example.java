@@ -1,45 +1,110 @@
 public class Example {
-	Attribute[] attributes;
-	boolean noOrYes; // NO = 0, YES = 1.
-	public static final boolean NO = false;
-	public static final boolean YES = true;
 
-	// default constructor
-	public Example() {
-		attributes = new Attribute[2]; // each example will have 3 attributes
-										// attached to it; yes, no, or it
-										// "ask a new question"
-		noOrYes = NO;
+	/* keywordrange, datecommitted, starrange, userlike */
+	private KeywordRange keywordRange;
+	private DateCommitted dateCommitted;
+	private StarRange starRange;
+	private LikedRepo likedRepo;
+	private boolean showRepo = false;
+
+	/**
+	 * 
+	 * @param keywordRange
+	 * @param dateCommitted
+	 * @param starRange
+	 * @param likedRepo
+	 * @param showRepo
+	 */
+	public Example(KeywordRange keywordRange, DateCommitted dateCommitted,
+			StarRange starRange, LikedRepo likedRepo, boolean showRepo) {
+		this.keywordRange = keywordRange;
+		this.dateCommitted = dateCommitted;
+		this.starRange = starRange;
+		this.likedRepo = likedRepo;
+		this.showRepo = showRepo;
 	}
 
-	// alternate constructor taking in two parameters that are the attributes
-	// associated with the constructor and the boolean NO or YES
-	public Example(Attribute[] attributes, boolean noOrYes) {
-		this.attributes = attributes;
-		this.noOrYes = noOrYes;
+	public String getChoice(Attribute attri) {
+		return attri.getChoice();
 	}
 
-	// It adds attributes to the example.
-	public void addAttribute(int index, Attribute attribute) {
-		if (index == 0 || index == 1)
-			attributes[index] = attribute;
-		else
-			System.err.println("Index is out of range.");
+	/**
+	 * 
+	 * @return keywordRange
+	 */
+	public KeywordRange getKeywordRange() {
+		return keywordRange;
 	}
 
-	// checks to see if all the examples have the same classification and
-	// returns that classification if they do
-	// i.e. if all the examples are positive it will return positive and will do
-	// the same if they are negative
-	// want to return the classification itself but they are enums...need to
-	// return an enum type
-	public Enum haveSameClassification() {
-		for (int i = 0; i < attributes.length; i++) // want to go through all
-													// the attributes of an
-													// example
-		{
-			// check to see if their classifications are equal and if they are,
-			// return that classification
-		}
+	/**
+	 * 
+	 * @return dateCommitted
+	 */
+	public DateCommitted getDateCommitted() {
+		return dateCommitted;
 	}
+
+	/**
+	 * 
+	 * @return starRange
+	 */
+	public StarRange getStarRange() {
+		return starRange;
+	}
+
+	/**
+	 * 
+	 * @return starRange
+	 */
+	public LikedRepo getLikedRepo() {
+		return likedRepo;
+	}
+
+	/**
+	 * @param keywordRange
+	 *            the keywordRange to set
+	 */
+	public void setKeywordRange(KeywordRange keywordRange) {
+		this.keywordRange = keywordRange;
+	}
+
+	/**
+	 * @param starRange
+	 *            the starRange to set
+	 */
+	public void setStarRange(StarRange starRange) {
+		this.starRange = starRange;
+	}
+
+	/**
+	 * @param likedRepo
+	 *            the likedRepo to set
+	 */
+	public void setLikedRepo(LikedRepo likedRepo) {
+		this.likedRepo = likedRepo;
+	}
+
+	/**
+	 * 
+	 * @param dateCommitted
+	 */
+	public void setDateCommitted(DateCommitted dateCommitted) {
+		this.dateCommitted = dateCommitted;
+	}
+
+	/**
+	 * @return the showRepo
+	 */
+	public boolean isShowRepo() {
+		return showRepo;
+	}
+
+	/**
+	 * @param showRepo
+	 *            the showRepo to set
+	 */
+	public void setShowRepo(boolean showRepo) {
+		this.showRepo = showRepo;
+	}
+
 }
