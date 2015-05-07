@@ -1,20 +1,22 @@
-public class LikedRepo extends Attribute {
+// package gitrecommender.decisionTree;
 
-	String choice;
+public class LikedRepo extends Attribute {
 	private boolean likedRepo = false;
-	String type;
 
 	public LikedRepo(int i) {
+		len = 2;
+		options = new String[len];
+		options[0] = "False";
+		options[1] = "True";
+
+		index = i;
 		if (i == 0)
 			likedRepo = false;
 		else
 			likedRepo = true;
 		type = "LikedRepo";
+		choice = options[i];
 	}
-
-	int index;
-	int len = 2;
-	String[] options = { "False, True" };
 
 	@Override
 	public int getIndex() {

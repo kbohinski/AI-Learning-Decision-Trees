@@ -1,3 +1,5 @@
+// package gitrecommender.decisionTree;
+
 //This class is used to determine logarithms that are not base 10, which is not supported in Java.
 
 public class Logarithm {
@@ -6,7 +8,7 @@ public class Logarithm {
 	// the base-k logarithm of a number. In this case we use k = 10 to determine
 	// the logBase of x given the base. Takes 2 doubles as parameters, returns
 	// the logbase of x as a double.
-	
+
 	public static double logBase(double x, double base) {
 		return Math.log(x) / Math.log(base);
 	}

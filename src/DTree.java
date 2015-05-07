@@ -1,5 +1,8 @@
+// package gitrecommender.decisionTree;
+
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Vector;
 
 public class DTree<T> {
 
@@ -39,9 +42,10 @@ public class DTree<T> {
 		return parent.getChild(index);
 	}
 
-	public static DTree decisionTreeLearning(ArrayList<Example> examples,
+	public DTree decisionTreeLearning(ArrayList<Example> examples,
 			ArrayList<Attribute> attributes, ArrayList<Example> parentExamples) {
 		boolean check = true;
+
 		for (Example ex : examples) {
 			if (!ex.isShowRepo()) {
 				check = false;
@@ -52,15 +56,15 @@ public class DTree<T> {
 		if (examples.isEmpty()) {
 			return getPlurality(parentExamples);
 		} else if (check) {
-			Node<Boolean> tmpNode = null;
+			Node<Attribute> tmpNode = null;
 
 			if (check) {
-				tmpNode = new Node<Boolean>(true);
+				tmpNode = new Node<Attribute>(new BooleanAttribute(0));
 			} else {
-				tmpNode = new Node<Boolean>(false);
+				tmpNode = new Node<Attribute>(new BooleanAttribute(1));
 			}
 
-			DTree<Boolean> tmpTree = new DTree<Boolean>(tmpNode);
+			DTree<Attribute> tmpTree = new DTree<Attribute>(tmpNode);
 
 			return tmpTree;
 		} else if (attributes.size() == 0) {
@@ -74,6 +78,7 @@ public class DTree<T> {
 						informationGain(
 								examples.toArray(new Example[examples.size()]),
 								attri.getType()), maxInfo);
+				System.out.println("maxInfo: " + maxInfo);
 				if (lastMax != maxInfo) {
 					lastMax = maxInfo;
 					high = attri;
@@ -81,6 +86,7 @@ public class DTree<T> {
 			}
 
 			// Dis be where recursion happens
+			System.out.println("High: " + high);
 			Node<Attribute> tmpNode = new Node<Attribute>(high);
 			DTree<Attribute> tmp = new DTree<Attribute>(tmpNode);
 			for (int i = 0; i < high.getLen(); i++) {
@@ -88,9 +94,13 @@ public class DTree<T> {
 				for (int j = 0; j < examples.size(); j++) {
 					if (examples.get(j).getChoice(high)
 							.equals(high.getOptions()[high.getIndex()])) {
+						// System.out.println(examples.get(j));
+						// System.out.println(examples.get(j).getChoice(high));
+						// System.out.println(high.getOptions()[high.getIndex()]);
 						newExs.add(examples.get(j));
 					}
 				}
+				System.out.println("Size of new examples: " + newExs.size());
 				attributes.remove(high);
 				DTree<Attribute> subtree = new DTree<Attribute>(
 						decisionTreeLearning(newExs, attributes, examples));
@@ -103,7 +113,7 @@ public class DTree<T> {
 
 	}
 
-	public static DTree<Boolean> getPlurality(ArrayList<Example> examples) {
+	public static DTree<Attribute> getPlurality(ArrayList<Example> examples) {
 		int trueCount = 0;
 		int falseCount = 0;
 		for (int i = 0; i < examples.size(); i++) {
@@ -114,18 +124,22 @@ public class DTree<T> {
 			}
 		}
 
-		Node<Boolean> tmpNode = null;
+		Node<Attribute> tmpNode = null;
 
 		if (trueCount > falseCount) {
-			tmpNode = new Node<Boolean>(true);
+			tmpNode = new Node<Attribute>(new BooleanAttribute(0));
 		} else if (falseCount > trueCount) {
-			tmpNode = new Node<Boolean>(false);
+			tmpNode = new Node<Attribute>(new BooleanAttribute(1));
 		} else {
 			Random rng = new Random();
-			tmpNode = new Node<Boolean>(rng.nextBoolean());
+			if (rng.nextBoolean() == true) {
+				tmpNode = new Node<Attribute>(new BooleanAttribute(0));
+			} else {
+				tmpNode = new Node<Attribute>(new BooleanAttribute(1));
+			}
 		}
 
-		DTree<Boolean> tmpTree = new DTree<Boolean>(tmpNode);
+		DTree<Attribute> tmpTree = new DTree<Attribute>(tmpNode);
 
 		return tmpTree;
 
@@ -145,7 +159,7 @@ public class DTree<T> {
 		double posThree = 0;
 		double four = 0;
 		double posFour = 0;
-		
+
 		if (toCheck != null) {
 			if (toCheck.equals("KeywordRange")) {
 				for (Example ex : e) {
@@ -176,10 +190,32 @@ public class DTree<T> {
 						}
 					}
 				}
-				sum += (one / e.length) * entropy((posOne / one));
-				sum += (two / e.length) * entropy((posTwo / two));
-				sum += (three / e.length) * entropy((posThree / three));
-				sum += (four / e.length) * entropy((posFour / four));
+
+				if (one == 0) {
+					sum += 0;
+				} else {
+					sum += (one / e.length) * entropy((posOne / one));
+				}
+
+				if (two == 0) {
+					sum += 0;
+				} else {
+					sum += (two / e.length) * entropy((posTwo / two));
+				}
+
+				if (three == 0) {
+					sum += 0;
+				} else {
+					sum += (three / e.length) * entropy((posThree / three));
+				}
+
+				if (four == 0) {
+					sum += 0;
+				} else {
+					sum += (four / e.length) * entropy((posFour / four));
+				}
+
+				System.out.println("Sum: " + sum);
 			} else if (toCheck.equals("DateCommitted")) {
 				for (Example ex : e) {
 					int num = ex.getDateCommitted().getIndex();
@@ -205,10 +241,29 @@ public class DTree<T> {
 						}
 					}
 				}
-				sum += (one / e.length) * entropy((posOne / one));
-				sum += (two / e.length) * entropy((posTwo / two));
-				sum += (three / e.length) * entropy((posThree / three));
-				sum += (four / e.length) * entropy((posFour / four));
+				if (one == 0) {
+					sum += 0;
+				} else {
+					sum += (one / e.length) * entropy((posOne / one));
+				}
+
+				if (two == 0) {
+					sum += 0;
+				} else {
+					sum += (two / e.length) * entropy((posTwo / two));
+				}
+
+				if (three == 0) {
+					sum += 0;
+				} else {
+					sum += (three / e.length) * entropy((posThree / three));
+				}
+
+				if (four == 0) {
+					sum += 0;
+				} else {
+					sum += (four / e.length) * entropy((posFour / four));
+				}
 			} else if (toCheck.equals("StarRange")) {
 				for (Example ex : e) {
 					int num = ex.getStarRange().getIndex();
@@ -234,10 +289,29 @@ public class DTree<T> {
 						}
 					}
 				}
-				sum += (one / e.length) * entropy((posOne / one));
-				sum += (two / e.length) * entropy((posTwo / two));
-				sum += (three / e.length) * entropy((posThree / three));
-				sum += (four / e.length) * entropy((posFour / four));
+				if (one == 0) {
+					sum += 0;
+				} else {
+					sum += (one / e.length) * entropy((posOne / one));
+				}
+
+				if (two == 0) {
+					sum += 0;
+				} else {
+					sum += (two / e.length) * entropy((posTwo / two));
+				}
+
+				if (three == 0) {
+					sum += 0;
+				} else {
+					sum += (three / e.length) * entropy((posThree / three));
+				}
+
+				if (four == 0) {
+					sum += 0;
+				} else {
+					sum += (four / e.length) * entropy((posFour / four));
+				}
 			} else if (toCheck.equals("LikedRepo")) {
 				for (Example ex : e) {
 					int num = ex.getLikedRepo().getIndex();
@@ -253,11 +327,20 @@ public class DTree<T> {
 						}
 					}
 				}
-				sum += (one / e.length) * entropy((posOne / one));
-				sum += (two / e.length) * entropy((posTwo / two));
+				if (one == 0) {
+					sum += 0;
+				} else {
+					sum += (one / e.length) * entropy((posOne / one));
+				}
+
+				if (two == 0) {
+					sum += 0;
+				} else {
+					sum += (two / e.length) * entropy((posTwo / two));
+				}
 			}
 		}
-		
+
 		return sum;
 	}
 
@@ -276,5 +359,36 @@ public class DTree<T> {
 	public static double informationGain(Example[] e, String toCheck) {
 		return goalEntropy(e) - remainder(e, toCheck);
 	}
+
+	public ArrayList<T> levelorder() {
+		Vector<Node<T>> nodeQueue = new Vector<Node<T>>();
+		ArrayList<T> iter = new ArrayList<T>();
+
+		if (this.parent != null) {
+			nodeQueue.add(parent);
+			while (!nodeQueue.isEmpty()) {
+				Node<T> current = nodeQueue.remove(0);
+				System.out.println(current);
+				iter.add(current.getElement());
+				System.out.println(current.getChildren().size());
+				for (int i = 0; i < current.getChildren().size(); i++) {
+					System.out.println(current.getChild(i));
+					nodeQueue.add(current.getChild(i));
+				}
+			}
+		}
+		return iter;
+	}
+
+	/*
+	 * public boolean queryTree(Example theExample) { boolean reachedEnd =
+	 * false; Node<Attribute> traceNode = new Node<Attribute>(parent);
+	 * while(!reachedEnd) { String theType = traceNode.getType();
+	 * if(theType.equals("BooleanAttribute")) {
+	 * if(traceNode.getChoice().equals("true")) { return true; } else { return
+	 * false; } } else {
+	 * 
+	 * } } }
+	 */
 
 }

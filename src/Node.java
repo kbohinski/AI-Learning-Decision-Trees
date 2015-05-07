@@ -1,3 +1,5 @@
+// package gitrecommender.decisionTree;
+
 import java.util.ArrayList;
 
 public class Node<T> {
@@ -10,6 +12,7 @@ public class Node<T> {
 	 */
 	public Node(T element) {
 		this.element = element;
+		children = new ArrayList<Node<T>>();
 	}
 
 	/**
@@ -62,4 +65,7 @@ public class Node<T> {
 		return children.size();
 	}
 
+	public String toString() {
+		return "Element: " + element;
+	}
 }

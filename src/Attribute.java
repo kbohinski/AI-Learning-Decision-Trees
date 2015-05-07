@@ -6,11 +6,11 @@ public class Attribute {
 	 * The parent class of the attributes of KeywordRange, DateCommited,
 	 * StarRange and LikedRepo
 	 */
-	int index;
-	String[] options;
-	int len;
-	String type;
-	String choice;
+	protected int index;
+	protected String[] options;
+	protected int len;
+	protected String type;
+	protected String choice;
 
 	/**
 	 * @return the index
@@ -35,7 +35,9 @@ public class Attribute {
 		return choice;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

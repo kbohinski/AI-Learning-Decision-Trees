@@ -1,3 +1,5 @@
+// package gitrecommender.decisionTree;
+
 public class Example {
 
 	/* keywordrange, datecommitted, starrange, userlike */
@@ -8,7 +10,7 @@ public class Example {
 	private boolean showRepo = false;
 
 	/**
-	 * 
+	 *
 	 * @param keywordRange
 	 * @param dateCommitted
 	 * @param starRange
@@ -25,11 +27,20 @@ public class Example {
 	}
 
 	public String getChoice(Attribute attri) {
-		return attri.getChoice();
+		String type = attri.getType();
+		if (type.equals("DateCommitted")) {
+			return this.dateCommitted.getChoice();
+		} else if (type.equals("KeywordRange")) {
+			return this.keywordRange.getChoice();
+		} else if (type.equals("LikedRepo")) {
+			return this.likedRepo.getChoice();
+		} else {
+			return this.starRange.getChoice();
+		}
 	}
 
 	/**
-	 * 
+	 *
 	 * @return keywordRange
 	 */
 	public KeywordRange getKeywordRange() {
@@ -37,7 +48,7 @@ public class Example {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return dateCommitted
 	 */
 	public DateCommitted getDateCommitted() {
@@ -45,7 +56,7 @@ public class Example {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return starRange
 	 */
 	public StarRange getStarRange() {
@@ -53,7 +64,7 @@ public class Example {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return starRange
 	 */
 	public LikedRepo getLikedRepo() {
@@ -85,7 +96,7 @@ public class Example {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param dateCommitted
 	 */
 	public void setDateCommitted(DateCommitted dateCommitted) {
@@ -105,6 +116,15 @@ public class Example {
 	 */
 	public void setShowRepo(boolean showRepo) {
 		this.showRepo = showRepo;
+	}
+
+	public String toString() {
+		String str = "keywordRange : " + keywordRange.toString();
+		str += "\ndateCommitted: " + dateCommitted.toString();
+		str += "\nstarRange: " + starRange.toString();
+		str += "\nlikedRepo: " + likedRepo.toString();
+		str += "\nshow repo: " + showRepo;
+		return str;
 	}
 
 }
