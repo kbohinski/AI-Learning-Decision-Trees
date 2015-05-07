@@ -1,0 +1,3 @@
+public enum DateCommitted {
+	WEEKORLESS, MONTHORLESS, YEARORLESS, MORETHANYEAR
+}

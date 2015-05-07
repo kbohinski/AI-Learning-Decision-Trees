@@ -1,19 +1,17 @@
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-public class DecisionTree
-{
-	//want to have this tree as our decision tree 
-	public JTree<Attribute> TheDecisionTree;
+public class DecisionTree {
+	// want to have this tree as our decision tree
+	public JTree TheDecisionTree;
 
-	public DecisionTree() 
-	{
-		//want to call Build Decision Tree when the constructor is called 
+	public DecisionTree() {
+		// want to call Build Decision Tree when the constructor is called
 	}
 
-	//Builds a decision tree given some examples, the attributes that describe our problem, and the initial examples
-	public JTree BuildDecisionTree(String[] examples, String[] attributes, String[] parent_examples)
-	{
+	// Builds a decision tree given some examples, the attributes that describe
+	// our problem, and the initial examples
+	public JTree BuildDecisionTree(String[] examples, String[] attributes, String[] parent_examples) {
 		if(examples.length == 0 || length == null)
 			return DecisionFormula.PluralityValue(parent_examples);
 		if(examples.haveSameClassification())
@@ -39,13 +37,29 @@ public class DecisionTree
 		return test; //want to return the tree that we are building 
 	}
 
-	private String PluralityValue(String[] examples)
-	{
-		//They would have said the majority class if there were only two classes. 
-		//Plurality is just the generalization of majority to more than 2 classes. 
-		//It just means take the most frequent class in that leaf and return that as your prediction. 
-		//For example, if you are classifying the colors of balls, and there are 3 blue balls, 2 red balls, and 2 white balls in a leaf, 
-		//return blue as your prediction.
+	private String PluralityValue(String[] examples) {
+		// They would have said the majority class if there were only two
+		// classes.
+		// Plurality is just the generalization of majority to more than 2
+		// classes.
+		// It just means take the most frequent class in that leaf and return
+		// that as your prediction.
+		// For example, if you are classifying the colors of balls, and there
+		// are 3 blue balls, 2 red balls, and 2 white balls in a leaf,
+		// return blue as your prediction.
+
+		long highVal = Long.MIN_VALUE;
+		String high = "";
+
+		for (int i = 0; i < examples.length; i++) {
+			String[] tmp = examples[i].split(" ");
+			long tmpVal = Long.valueOf(tmp[0]);
+			if (tmpVal > highVal) {
+				high = tmp[1];
+			}
+		}
+
+		return high;
 
 	}
 }

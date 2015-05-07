@@ -33,7 +33,7 @@ public class Example {
 	// the same if they are negative
 	// want to return the classification itself but they are enums...need to
 	// return an enum type
-	public haveSameClassification() {
+	public Enum haveSameClassification() {
 		for (int i = 0; i < attributes.length; i++) // want to go through all
 													// the attributes of an
 													// example

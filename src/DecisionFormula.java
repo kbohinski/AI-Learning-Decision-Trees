@@ -12,7 +12,7 @@ public class DecisionFormula {
 	// This formula returns the remainder value of an attribute as a fraction of
 	// the number of examples contained in this attribute choice versus all of
 	// the choices
-	// and the entropy of its postive values divided by all its values.
+	// and the entropy of its positive values divided by all its values.
 	public static double Remainder(Attribute a) {
 		double sum = 0;
 		for (int i = 0; i < a.numExamples(); i++) {
@@ -30,7 +30,7 @@ public class DecisionFormula {
 	}
 
 	// This formula calculates the information gain of an attribute by taking
-	// the difference of the entropy of the goal attribute and the remainider of
+	// the difference of the entropy of the goal attribute and the remainder of
 	// the attribute.
 	public static double InformationGain(Attribute a) {
 		return GoalEntropy(a) - Remainder(a);
