@@ -2,13 +2,14 @@ public class LikedRepo extends Attribute {
 
 	String choice;
 	private boolean likedRepo = false;
+	String type;
 
 	public LikedRepo(int i) {
 		if (i == 0)
 			likedRepo = false;
 		else
 			likedRepo = true;
-		choice = options[i];
+		type = "LikedRepo";
 	}
 
 	int index;

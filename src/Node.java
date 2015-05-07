@@ -10,7 +10,6 @@ public class Node<T> {
 	 */
 	public Node(T element) {
 		this.element = element;
-		children.clear();
 	}
 
 	/**

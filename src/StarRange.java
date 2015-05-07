@@ -4,6 +4,7 @@ public class StarRange extends Attribute {
 
 	public StarRange(int i) {
 		choice = options[i];
+		type = "StarRange";
 	}
 
 	private String[] options = { "zerofifty", "fiftyonehundred",

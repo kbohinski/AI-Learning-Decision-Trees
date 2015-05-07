@@ -145,116 +145,119 @@ public class DTree<T> {
 		double posThree = 0;
 		double four = 0;
 		double posFour = 0;
-
-		if (toCheck.equals("KeywordRange")) {
-			for (Example ex : e) {
-				/*
-				 * "zerothirty", "thirtyfifty", "fiftyeighty",
-				 * "eightyonehundred"
-				 */
-				int num = ex.getKeywordRange().getIndex();
-				if (num == 1) {
-					one += 1;
-					if (ex.isShowRepo()) {
-						posOne += 1;
-					}
-				} else if (num == 2) {
-					two += 1;
-					if (ex.isShowRepo()) {
-						posTwo += 1;
-					}
-				} else if (num == 3) {
-					three += 1;
-					if (ex.isShowRepo()) {
-						posThree += 1;
-					}
-				} else if (num == 4) {
-					four += 1;
-					if (ex.isShowRepo()) {
-						posFour += 1;
-					}
-				}
-			}
-			sum += (one / e.length) * entropy((posOne / one));
-			sum += (two / e.length) * entropy((posTwo / two));
-			sum += (three / e.length) * entropy((posThree / three));
-			sum += (four / e.length) * entropy((posFour / four));
-		} else if (toCheck.equals("DateCommitted")) {
-			for (Example ex : e) {
-				int num = ex.getDateCommitted().getIndex();
-				if (num == 1) {
-					one += 1;
-					if (ex.isShowRepo()) {
-						posOne += 1;
-					}
-				} else if (num == 2) {
-					two += 1;
-					if (ex.isShowRepo()) {
-						posTwo += 1;
-					}
-				} else if (num == 3) {
-					three += 1;
-					if (ex.isShowRepo()) {
-						posThree += 1;
-					}
-				} else if (num == 4) {
-					four += 1;
-					if (ex.isShowRepo()) {
-						posFour += 1;
+		
+		if (toCheck != null) {
+			if (toCheck.equals("KeywordRange")) {
+				for (Example ex : e) {
+					/*
+					 * "zerothirty", "thirtyfifty", "fiftyeighty",
+					 * "eightyonehundred"
+					 */
+					int num = ex.getKeywordRange().getIndex();
+					if (num == 1) {
+						one += 1;
+						if (ex.isShowRepo()) {
+							posOne += 1;
+						}
+					} else if (num == 2) {
+						two += 1;
+						if (ex.isShowRepo()) {
+							posTwo += 1;
+						}
+					} else if (num == 3) {
+						three += 1;
+						if (ex.isShowRepo()) {
+							posThree += 1;
+						}
+					} else if (num == 4) {
+						four += 1;
+						if (ex.isShowRepo()) {
+							posFour += 1;
+						}
 					}
 				}
-			}
-			sum += (one / e.length) * entropy((posOne / one));
-			sum += (two / e.length) * entropy((posTwo / two));
-			sum += (three / e.length) * entropy((posThree / three));
-			sum += (four / e.length) * entropy((posFour / four));
-		} else if (toCheck.equals("StarRange")) {
-			for (Example ex : e) {
-				int num = ex.getStarRange().getIndex();
-				if (num == 1) {
-					one += 1;
-					if (ex.isShowRepo()) {
-						posOne += 1;
-					}
-				} else if (num == 2) {
-					two += 1;
-					if (ex.isShowRepo()) {
-						posTwo += 1;
-					}
-				} else if (num == 3) {
-					three += 1;
-					if (ex.isShowRepo()) {
-						posThree += 1;
-					}
-				} else if (num == 4) {
-					four += 1;
-					if (ex.isShowRepo()) {
-						posFour += 1;
-					}
-				}
-			}
-			sum += (one / e.length) * entropy((posOne / one));
-			sum += (two / e.length) * entropy((posTwo / two));
-			sum += (three / e.length) * entropy((posThree / three));
-			sum += (four / e.length) * entropy((posFour / four));
-		} else if (toCheck.equals("LikedRepo")) {
-			for (Example ex : e) {
-				int num = ex.getLikedRepo().getIndex();
-				if (num == 1) {
-					one += 1;
-					if (ex.isShowRepo()) {
-						posOne += 1;
-					}
-				} else if (num == 0) {
-					two += 1;
-					if (ex.isShowRepo()) {
-						posTwo += 1;
+				sum += (one / e.length) * entropy((posOne / one));
+				sum += (two / e.length) * entropy((posTwo / two));
+				sum += (three / e.length) * entropy((posThree / three));
+				sum += (four / e.length) * entropy((posFour / four));
+			} else if (toCheck.equals("DateCommitted")) {
+				for (Example ex : e) {
+					int num = ex.getDateCommitted().getIndex();
+					if (num == 1) {
+						one += 1;
+						if (ex.isShowRepo()) {
+							posOne += 1;
+						}
+					} else if (num == 2) {
+						two += 1;
+						if (ex.isShowRepo()) {
+							posTwo += 1;
+						}
+					} else if (num == 3) {
+						three += 1;
+						if (ex.isShowRepo()) {
+							posThree += 1;
+						}
+					} else if (num == 4) {
+						four += 1;
+						if (ex.isShowRepo()) {
+							posFour += 1;
+						}
 					}
 				}
+				sum += (one / e.length) * entropy((posOne / one));
+				sum += (two / e.length) * entropy((posTwo / two));
+				sum += (three / e.length) * entropy((posThree / three));
+				sum += (four / e.length) * entropy((posFour / four));
+			} else if (toCheck.equals("StarRange")) {
+				for (Example ex : e) {
+					int num = ex.getStarRange().getIndex();
+					if (num == 1) {
+						one += 1;
+						if (ex.isShowRepo()) {
+							posOne += 1;
+						}
+					} else if (num == 2) {
+						two += 1;
+						if (ex.isShowRepo()) {
+							posTwo += 1;
+						}
+					} else if (num == 3) {
+						three += 1;
+						if (ex.isShowRepo()) {
+							posThree += 1;
+						}
+					} else if (num == 4) {
+						four += 1;
+						if (ex.isShowRepo()) {
+							posFour += 1;
+						}
+					}
+				}
+				sum += (one / e.length) * entropy((posOne / one));
+				sum += (two / e.length) * entropy((posTwo / two));
+				sum += (three / e.length) * entropy((posThree / three));
+				sum += (four / e.length) * entropy((posFour / four));
+			} else if (toCheck.equals("LikedRepo")) {
+				for (Example ex : e) {
+					int num = ex.getLikedRepo().getIndex();
+					if (num == 1) {
+						one += 1;
+						if (ex.isShowRepo()) {
+							posOne += 1;
+						}
+					} else if (num == 0) {
+						two += 1;
+						if (ex.isShowRepo()) {
+							posTwo += 1;
+						}
+					}
+				}
+				sum += (one / e.length) * entropy((posOne / one));
+				sum += (two / e.length) * entropy((posTwo / two));
 			}
-			sum += (one / e.length) * entropy((posOne / one));
-			sum += (two / e.length) * entropy((posTwo / two));
 		}
+		
 		return sum;
 	}
 
