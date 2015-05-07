@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Attribute {
 
 	/**
@@ -31,6 +33,16 @@ public class Attribute {
 
 	public String getChoice() {
 		return choice;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Attribute [index=" + index + ", options="
+				+ Arrays.toString(options) + ", len=" + len + ", type=" + type
+				+ ", choice=" + choice + "]";
 	}
 
 }
