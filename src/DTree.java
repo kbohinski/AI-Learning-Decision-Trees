@@ -1,4 +1,6 @@
 // package gitrecommender.decisionTree;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -380,15 +382,62 @@ public class DTree<T> {
 		return iter;
 	}
 
-	/*
-	 * public boolean queryTree(Example theExample) { boolean reachedEnd =
-	 * false; Node<Attribute> traceNode = new Node<Attribute>(parent);
-	 * while(!reachedEnd) { String theType = traceNode.getType();
-	 * if(theType.equals("BooleanAttribute")) {
-	 * if(traceNode.getChoice().equals("true")) { return true; } else { return
-	 * false; } } else {
-	 * 
-	 * } } }
-	 */
+	public String queryTree(int watchers, int keyword, long date) {
+		Node<Attribute> tempNode = (Node<Attribute>)this.parent;
+		String type;
 
+		while(!tempNode.getElement().getType().equals("BooleanAttribute")) {
+			type = tempNode.getElement().getType();
+
+			switch(type) {
+				case("BooleanAttribute"):
+					break;
+				case("DateCommitted"):
+					tempNode = switchOnDateNode(date, tempNode.getChildren());
+					break;
+				case("KeywordRange"):
+					tempNode = switchOnKeywordNode(keyword, tempNode.getChildren());
+					break;
+				case("StarRange"):
+					tempNode = switchOnStarNode(watchers, tempNode.getChildren());
+					break;
+			}
+		}
+
+		return tempNode.getElement().getChoice();
+	}
+
+	private Node<Attribute> switchOnDateNode(long date, ArrayList<Node<Attribute>> children) {
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+		long lastCommit = cal.getTimeInMillis() / 1000L - date;
+
+		if (lastCommit <= 604800) {
+			return (Node<Attribute>) children.get(0);
+		} else if (lastCommit <= 2592000) {
+			return (Node<Attribute>) children.get(1);
+		} else if (lastCommit <= 31536000) {
+			return (Node<Attribute>) children.get(2);
+		} else {
+			return (Node<Attribute>) children.get(3);
+		}
+	}
+
+	private Node<Attribute> switchOnKeywordNode(int keywords, ArrayList<Node<Attribute>> children) {
+		if(keywords < 30) return (Node<Attribute>) children.get(0);
+		else if(keywords < 50) return (Node<Attribute>) children.get(1);
+		else if(keywords < 80) return (Node<Attribute>) children.get(2);
+		else return (Node<Attribute>) children.get(3);
+	}
+
+	private Node<Attribute> switchOnStarNode(int stars, ArrayList<Node<Attribute>> children) {
+		if(stars < 50) return (Node<Attribute>) children.get(0);
+		else if(stars < 100) return (Node<Attribute>) children.get(1);
+		else if(stars < 500) return (Node<Attribute>) children.get(2);
+		else return (Node<Attribute>) children.get(3);
+	}
+
+	private Node<Attribute> switchOnLikedNode(boolean liked, ArrayList<Node<Attribute>> children) {
+		if(liked) return (Node<Attribute>) children.get(1);
+		else return (Node<Attribute>) children.get(0);
+	}
 }
