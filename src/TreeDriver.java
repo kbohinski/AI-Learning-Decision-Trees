@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
+import java.util.Date;
 import java.util.TimeZone;
 
 public class TreeDriver {
@@ -94,7 +95,9 @@ public class TreeDriver {
 
 		DTree learnedTree = tree.decisionTreeLearning(examples, attributes,
 				examples);
-		System.out.println("done learning");
-		System.out.println(learnedTree.levelorder());
+		long seconds = new Date().getTime();
+		seconds /= 1000;
+		String result = learnedTree.queryTree(35700, 20, seconds);
+		System.out.println("Querying tree. Result: " + result);
 	}
 }
