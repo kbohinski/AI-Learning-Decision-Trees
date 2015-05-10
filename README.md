@@ -7,3 +7,6 @@ We made machine learning decision trees for our final project (gitrecommender) f
 @matthew-steuerer
 @caneroj1
 @boutin4
+
+>See the project!
+>https://github.com/caneroj1/gitRecommender
